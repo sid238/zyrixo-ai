@@ -1,19 +1,23 @@
 {
-  "name": "terabox-api",
-  "version": "1.0.0",
-  "description": "API to scrape teraboxdown.pages.dev using Puppeteer",
-  "main": "index.js",
+  "name": "Ethix-MD",
+  "version": "10.8.1",
+  "description": "Ethix-MD latest multi device whatsapp bot",
+  "main": "connect.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node index.js"
+    "start": "pm2 start connect.js --deep-monitoring --attach --name Ethix-MD",
+    "stop": "pm2 stop Ethix-MD",
+    "restart": "pm2 restart Ethix-MD"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "puppeteer": "^21.3.8"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT"
+    "baileys": "^6.7.16",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "jimp": "^0.16.13",
+    "multer": "^1.4.5-lts.1",
+    "path": "^0.12.7",
+    "pino": "^9.6.0",
+    "pm2": "^5.4.0"
+  }
 }
