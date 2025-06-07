@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYRIXO-AI Profile Setup</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: linear-gradient(45deg, #e8f5e9, #c8e6c9, #a5d6a7, #e8f5e9);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .drag-drop-zone {
+            border: 3px dashed #4caf50;
+            padding: 2.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .drag-drop-zone.dragover {
+            background-color: #c8e6c9;
+            border-color: #2e7d32;
+            transform: scale(1.02);
+        }
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 12px;
+            margin-top: 10px;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+        }
+        .preview-controls {
+            margin-top: 10px;
+            display: none;
+        }
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1055;
+        }
+        .toast-success .toast-header {
+            background-color: #4caf50;
+            color: white;
+            border-bottom: none;
+            font-weight: 600;
+        }
+        .toast-success .toast-body {
+            background-color: #ffffff;
+        }
+        .toast-error .toast-header {
+            background-color: #dc3545;
+            color: white;
+            border-bottom: none;
+            font-weight: 600;
+        }
+        .toast-error .toast-body {
+            background-color: #ffffff;
+        }
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #81c784;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+        }
+        .btn-primary {
+            border-radius: 10px;
+            padding: 0.6rem 1.8rem;
+            background-color: #4caf50;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+        .btn-outline-secondary {
+            border: 2px solid #4caf50;
+            color: #4caf50;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #4caf50;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            border-radius: 10px;
+            padding: 0.6rem 1.8rem;
+            background-color: #dc3545;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        .navbar {
+            background-color: #2e7d32;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #c8e6c9;
+        }
+        footer {
+            background-color: #2e7d32;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+        }
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #c8e6c9;
+        }
+        .accordion-button {
+            background-color: #e8f5e9;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        .list-group-item {
+            border-color: #c8e6c9;
+            font-weight: 400;
+        }
+        .pairing-code-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .pairing-code-section.visible {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-robot me-2"></i>ZYRIXO-AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#link-device">How to Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">Channel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Profile Setup Section -->
+        <div class="card mb-5">
+            <div class="card-body p-4">
+                <h2 class="card-title"><i class="bi bi-person-fill-gear me-2"></i>Setup Profile Picture</h2>
+                <div class="drag-drop-zone mb-4" id="dropZone">
+                    <div id="uploadPrompt" class="text-center">
+                        <p><i class="bi bi-cloud-upload fs-2"></i></p>
+                        <p class="mb-1">Drag & Drop your profile picture here or click to browse</p>
+                        <small class="text-muted">Supported formats: JPG, PNG (Max 5MB)</small>
+                    </div>
+                    <img id="imagePreview" class="image-preview" alt="Image Preview">
+                    <div class="preview-controls" id="previewControls">
+                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="reselectImage()"><i class="bi bi-pencil me-1"></i>Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteImage()"><i class="bi bi-trash me-1"></i>Delete</button>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/jpeg,image/png" class="d-none">
+                </div>
+                <div class="row align-items-center mt-3">
+                    <div class="col-md-4 mb-3">
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" pattern="[0-9]+" maxlength="15" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <button class="btn btn-primary w-100" id="generateCodeBtn" onclick="generatePairingCode()" disabled><i class="bi bi-arrow-repeat me-2"></i>Generate Code</button>
+                    </div>
+                </div>
+                <div class="pairing-code-section" id="pairingCodeSection">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="pairingCodeOutput" placeholder="Your pairing code" readonly>
+                        <button class="btn btn-outline-secondary" type="button" onclick="copyCode()"><i class="bi bi-clipboard-check me-2"></i>Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Link Device Section -->
+        <div class="card mb-5" id="link-device">
+            <div class="card-body p-4">
+                <h2 class="card-title"><i class="bi bi-phone-fill me-2"></i>How to Link Device</h2>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item">Open WhatsApp on your primary phone.</li>
+                    <li class="list-group-item">Go to <strong>Settings > Linked Devices</strong>.</li>
+                    <li class="list-group-item">Tap <strong>Link a Device</strong> and select <strong>Link with phone number</strong>.</li>
+                    <li class="list-group-item">Enter the pairing code generated above in the provided field.</li>
+                    <li class="list-group-item">Follow the on-screen instructions to complete the linking process.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="card mb-5" id="about">
+            <div class="card-body p-4">
+                <h2 class="card-title"><i class="bi bi-info-circle-fill me-2"></i>About ZYRIXO-AI</h2>
+                <p>ZYRIXO-AI is a secure platform for managing your WhatsApp profile. Upload your profile picture, generate pairing codes, and link devices effortlessly. Created by Ethix-Xsid for a seamless experience.</p>
+                <p><strong>Data Safety:</strong> Your data is safe with us. Uploaded images and session data are automatically deleted after the profile picture is updated, ensuring privacy.</p>
+                <p><strong>Warning:</strong> Using third-party tools like ZYRIXO-AI may risk a WhatsApp ban. ZYRIXO-AI and its creators are not responsible for any bans or issues arising from usage.</p>
+                <p><strong>Contact:</strong> +919142294671 | <a href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">Join our WhatsApp Channel</a></p>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="card mb-5" id="faq">
+            <div class="card-body p-4">
+                <h2 class="card-title"><i class="bi bi-question-circle-fill me-2"></i>FAQ</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+                                How do I upload a profile picture?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Drag and drop a JPG or PNG image into the upload area or click to browse. The image will upload automatically, and you can preview, edit, or delete it directly in the upload area.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                How do I generate a pairing code?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                After uploading a profile picture, enter your phone number and click "Generate Code". Copy the displayed code using the "Copy" button.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Is my data safe with ZYRIXO-AI?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, your uploaded images and session data are deleted after the profile picture is updated. However, using this tool may risk a WhatsApp ban, for which ZYRIXO-AI is not responsible.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container">
+        <div class="toast toast-success" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <strong class="me-auto" id="successToastTitle"></strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+        <div class="toast toast-error" id="errorToast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-x-circle-fill me-2"></i>
+                <strong class="me-auto" id="errorToastTitle"></strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">© 2025 ZYRIXO-AI by Ethix-Xsid. All rights reserved. | <a href="#about">About</a> | <a href="#faq">FAQ</a> | <a href="#link-device">How to Link</a> | <a href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">WhatsApp Channel</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // State to track upload status
+        let isImageUploaded = false;
+        let currentImageFile = null;
+
+        // Drag and Drop Functionality
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+        const previewControls = document.getElementById('previewControls');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const generateCodeBtn = document.getElementById('generateCodeBtn');
+        const pairingCodeSection = document.getElementById('pairingCodeSection');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && (files[0].type === 'image/jpeg' || files[0].type === 'image/png')) {
+                fileInput.files = files;
+                currentImageFile = files[0];
+                showImagePreview(files[0]);
+                uploadProfilePicture(files[0]);
+            } else {
+                showErrorToast('Please select a JPG or PNG file');
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                currentImageFile = fileInput.files[0];
+                showImagePreview(fileInput.files[0]);
+                uploadProfilePicture(fileInput.files[0]);
+            }
+        });
+
+        // Show Image Preview in Upload Box
+        function showImagePreview(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                uploadPrompt.style.display = 'none';
+                previewControls.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Reselect Image
+        function reselectImage() {
+            fileInput.click();
+        }
+
+        // Delete Image
+        function deleteImage() {
+            fileInput.value = '';
+            currentImageFile = null;
+            isImageUploaded = false;
+            imagePreview.style.display = 'none';
+            uploadPrompt.style.display = 'block';
+            previewControls.style.display = 'none';
+            phoneNumberInput.disabled = true;
+            generateCodeBtn.disabled = true;
+            pairingCodeSection.classList.remove('visible');
+            showSuccessToast('Image Deleted');
+        }
+
+        // Toast Notifications
+        function showSuccessToast(title) {
+            const toast = document.getElementById('successToast');
+            document.getElementById('successToastTitle').textContent = title;
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+        }
+
+        function showErrorToast(title) {
+            const toast = document.getElementById('errorToast');
+            document.getElementById('errorToastTitle').textContent = title;
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+        }
+
+        // Upload Profile Picture
+        async function uploadProfilePicture(file) {
+            if (!file) {
+                showErrorToast('No file selected');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+
+            try {
+                const response = await fetch('/upload-photo', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showSuccessToast(data.status);
+                    isImageUploaded = true;
+                    phoneNumberInput.disabled = false;
+                    generateCodeBtn.disabled = false;
+                } else {
+                    showErrorToast(data.status);
+                    isImageUploaded = false;
+                    phoneNumberInput.disabled = true;
+                    generateCodeBtn.disabled = true;
+                    imagePreview.style.display = 'none';
+                    uploadPrompt.style.display = 'block';
+                    previewControls.style.display = 'none';
+                }
+            } catch (error) {
+                showErrorToast('Error uploading profile picture');
+                isImageUploaded = false;
+                phoneNumberInput.disabled = true;
+                generateCodeBtn.disabled = true;
+                imagePreview.style.display = 'none';
+                uploadPrompt.style.display = 'block';
+                previewControls.style.display = 'none';
+                console.error('Upload error:', error);
+            }
+        }
+
+        // Generate Pairing Code
+        async function generatePairingCode() {
+            const phoneNumber = document.getElementById('phoneNumber').value.replace(/[^0-9]/g, '');
+            if (!phoneNumber) {
+                showErrorToast('Please enter a valid phone number');
+                return;
+            }
+
+            try {
+                const response = await fetch('/pairing-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber })
+                });
+                const data = await response.json();
+                if (data.pairingCode) {
+                    document.getElementById('pairingCodeOutput').value = data.pairingCode;
+                    pairingCodeSection.classList.add('visible');
+                    showSuccessToast(data.status);
+                } else {
+                    showErrorToast('Error generating pairing code');
+                }
+            } catch (error) {
+                showErrorToast('Error generating pairing code');
+                console.error('Pairing error:', error);
+            }
+        }
+
+        // Copy Pairing Code
+        function copyCode() {
+            const code = document.getElementById('pairingCodeOutput').value;
+            if (code) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showSuccessToast('Pairing Code Copied');
+                });
+            } else {
+                showErrorToast('No code to copy');
+            }
+        }
+    </script>
+</body>
+</html>
