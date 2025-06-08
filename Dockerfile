@@ -1,23 +1,19 @@
-# Base image
-FROM node:18-alpine
+FROM node:lts-buster
 
-# Set working directory
-WORKDIR /app
+RUN apt-get update && \
+  apt-get install -y \
+  ffmpeg \
+  imagemagick \
+  webp && \
+  apt-get upgrade -y && \
+  rm -rf /var/lib/apt/lists/*
 
-# Copy package files first (better for caching)
-COPY package*.json ./
+COPY package.json .
 
-# Install dependencies
-RUN npm install
+RUN npm install && npm install pm2
 
-# Copy rest of the application code
 COPY . .
 
-# Expose the port your app runs on
-EXPOSE 3000
+EXPOSE 5000
 
-# Default environment variable file
-ENV NODE_ENV=production
-
-# Start the app
 CMD ["npm", "start"]
