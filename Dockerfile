@@ -1,19 +1,23 @@
-FROM node:lts-buster
+# Base image
+FROM node:18-alpine
 
-RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  rm -rf /var/lib/apt/lists/*
+# Set working directory
+WORKDIR /app
 
-COPY package.json .
+# Copy package files first (better for caching)
+COPY package*.json ./
 
-RUN npm install && npm install -g qrcode-terminal pm2
+# Install dependencies
+RUN npm install
 
+# Copy rest of the application code
 COPY . .
 
-EXPOSE 5000
+# Expose the port your app runs on
+EXPOSE 3000
 
+# Default environment variable file
+ENV NODE_ENV=production
+
+# Start the app
 CMD ["npm", "start"]
