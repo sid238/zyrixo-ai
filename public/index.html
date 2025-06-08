@@ -3,542 +3,1543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZYRIXO-AI Profile Setup</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts for Modern Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>ZYRIXO-AI - Neon Profile Setup</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
     <style>
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --primary-neon: #00ffff;
+            --secondary-neon: #ff00ff;
+            --accent-red: #ff0040;
+            --bg-black: #0a0a0a;
+            --bg-dark: #141414;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #2a2a2a;
+            --success: #00ff88;
+            --error: #ff3366;
         }
-        body {
-            background: linear-gradient(45deg, #e8f5e9, #c8e6c9, #a5d6a7, #e8f5e9);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            font-family: 'Inter', sans-serif;
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
-        .drag-drop-zone {
-            border: 3px dashed #4caf50;
-            padding: 2.5rem;
-            text-align: center;
-            background-color: #ffffff;
-            border-radius: 20px;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            background: var(--bg-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a1a 100%);
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(255, 0, 64, 0.05) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-10%, -10%) rotate(120deg); }
+            66% { transform: translate(10%, -10%) rotate(240deg); }
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-neon);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            box-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) scale(0);
+            }
+            to {
+                transform: translateY(-100vh) scale(1);
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 0.75rem 0;
             transition: all 0.3s ease;
-            min-height: 300px;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(45deg, var(--primary-neon), var(--accent-red), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-features {
+            margin-top: 1rem;
+        }
+
+        .hero-features p {
+            margin: 0.4rem 0;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUpFeature 0.8s ease forwards;
+        }
+
+        .hero-features .delay-1 { animation-delay: 0.4s; }
+        .hero-features .delay-2 { animation-delay: 0.6s; }
+        .hero-features .delay-3 { animation-delay: 0.8s; }
+
+        @keyframes fadeInUpFeature {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating-cta {
+            margin-top: 1.25rem;
+            animation: floatBounce 2.5s infinite ease-in-out;
+        }
+
+        @keyframes floatBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--accent-red), var(--secondary-neon));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.1);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            color: var(--accent-red);
+            font-size: 1.25rem;
+            animation: iconGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 0, 64, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255, 0, 64, 0.8)); }
+        }
+
+        .drag-drop-zone {
+            border: 2px dashed var(--primary-neon);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 255, 255, 0.02);
+            transition: all 0.3s ease;
+            min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
+            cursor: pointer;
         }
-        .drag-drop-zone.dragover {
-            background-color: #c8e6c9;
-            border-color: #2e7d32;
+
+        .drag-drop-zone:hover {
+            border-color: var(--accent-red);
+            background: rgba(255, 0, 64, 0.02);
             transform: scale(1.02);
         }
+
+        .drag-drop-zone.dragover {
+            border-color: var(--success);
+            background: rgba(0, 255, 136, 0.05);
+            border-width: 3px;
+            transform: scale(1.05);
+        }
+
+        .drag-drop-zone h3 {
+            font-size: 1.125rem;
+            margin: 0.5rem 0;
+        }
+
+        .drag-drop-zone p {
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+        }
+
+        .drag-drop-zone small {
+            font-size: 0.75rem;
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary-neon);
+            margin-bottom: 0.75rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .image-preview {
             max-width: 100%;
             max-height: 200px;
-            border-radius: 12px;
-            margin-top: 10px;
+            border-radius: 8px;
+            margin: 0.75rem 0;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
             display: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            object-fit: contain;
+            animation: zoomIn 0.5s ease-out;
         }
-        .preview-controls {
-            margin-top: 10px;
-            display: none;
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1055;
+
+        .form-group {
+            margin-bottom: 1rem;
         }
-        .toast-success .toast-header {
-            background-color: #4caf50;
-            color: white;
-            border-bottom: none;
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.375rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-black);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.625rem 0.875rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .btn {
+            background: none;
+            border: 2px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 0.625rem 1.5rem;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-        .toast-success .toast-body {
-            background-color: #ffffff;
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
         }
-        .toast-error .toast-header {
-            background-color: #dc3545;
-            color: white;
-            border-bottom: none;
-            font-weight: 600;
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-neon);
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            border-radius: 50%;
         }
-        .toast-error .toast-body {
-            background-color: #ffffff;
+
+        .btn:hover {
+            color: var(--bg-black);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.4);
         }
-        .card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            transition: transform 0.3s ease;
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-title {
-            background-color: #4caf50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
-            font-size: 1.6rem;
-            font-weight: 600;
+
+        .btn-text {
+            position: relative;
+            z-index: 1;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
-        .form-control {
-            border-radius: 10px;
-            border: 2px solid #81c784;
-            transition: border-color 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #2e7d32;
-            box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
-        }
+
         .btn-primary {
-            border-radius: 10px;
-            padding: 0.6rem 1.8rem;
-            background-color: #4caf50;
-            border: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            border-color: var(--accent-red);
+            color: var(--accent-red);
         }
+
+        .btn-primary::before {
+            background: var(--accent-red);
+        }
+
         .btn-primary:hover {
-            background-color: #388e3c;
-            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 64, 0.4);
         }
-        .btn-outline-secondary {
-            border: 2px solid #4caf50;
-            color: #4caf50;
-            border-radius: 10px;
-            font-weight: 500;
+
+        .btn-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .btn-success::before {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .accordion-item {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: var(--bg-card);
+            padding: 0.875rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.3s ease;
         }
-        .btn-outline-secondary:hover {
-            background-color: #4caf50;
-            color: white;
-            transform: translateY(-2px);
+
+        .accordion-header:hover {
+            background: rgba(0, 255, 255, 0.05);
         }
-        .btn-danger {
-            border-radius: 10px;
-            padding: 0.6rem 1.8rem;
-            background-color: #dc3545;
-            border: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+
+        .accordion-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
         }
-        .btn-danger:hover {
-            background-color: #c82333;
-            transform: translateY(-2px);
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            color: var(--primary-neon);
+            font-size: 0.875rem;
         }
-        .navbar {
-            background-color: #2e7d32;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
         }
-        .navbar-brand {
+
+        .accordion-content {
+            jubile-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.25rem;
+        }
+
+        .accordion-content p {
+            font-size: 0.813rem;
+            line-height: 1.6;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .code-display {
+            background: var(--bg-black);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.875rem;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            margin: 0.75rem 0;
+        }
+
+        .code-display::before {
+            content: 'CODE';
+            position: absolute;
+            top: -10px;
+            left: 1rem;
+            background: var(--bg-card);
+            padding: 0 0.5rem;
+            color: var(--primary-neon);
+            font-size: 0.625rem;
             font-weight: 700;
-            font-size: 1.8rem;
         }
-        .nav-link {
-            font-weight: 500;
+
+        #pairingCodeOutput {
+            font-size: 1rem !important;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 4rem;
+            right: 1rem;
+            z-index: 2000;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid;
+            border-radius: 8px;
+            padding: 0.875rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 250px;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            font-size: 0.875rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .toast-icon {
+            font-size: 1rem;
+        }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            cursor: pointer;
             transition: color 0.3s ease;
         }
-        .nav-link:hover {
-            color: #c8e6c9;
+
+        .toast-close:hover {
+            color: var(--text-primary);
         }
-        footer {
-            background-color: #2e7d32;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+
+        .footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
         }
-        footer a {
-            color: #ffffff;
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
+            font-size: 0.875rem;
             transition: color 0.3s ease;
         }
-        footer a:hover {
-            color: #c8e6c9;
+
+        .footer-link:hover {
+            color: var(--primary-neon);
         }
-        .accordion-button {
-            background-color: #e8f5e9;
-            font-weight: 500;
+
+        .footer p {
+            font-size: 0.813rem;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top-color: var(--primary-neon);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+
+        .progress-step {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
             transition: all 0.3s ease;
         }
-        .accordion-button:not(.collapsed) {
-            background-color: #c8e6c9;
-            color: #2e7d32;
+
+        .progress-step.active {
+            background: var(--primary-neon);
+            color: var(--bg-black);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
-        .list-group-item {
-            border-color: #c8e6c9;
-            font-weight: 400;
+
+        .progress-step.completed {
+            background: var(--success);
+            color: var(--bg-black);
+            border-color: var(--success);
         }
-        .pairing-code-section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+
+        .step-card {
+            background: var(--bg-dark);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
-        .pairing-code-section.visible {
+
+        .step-card > div:first-child {
+            font-size: 1.5rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .step-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.375rem !important;
+        }
+
+        .step-card p {
+            font-size: 0.813rem;
+        }
+
+        ul li {
+            font-size: 0.875rem;
+            margin-bottom: 0.375rem !important;
+        }
+
+        .grid {
+            gap: 1rem !important;
+            margin: 1.5rem 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding: 4rem 1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.75rem, 8vw, 2.5rem);
+            }
+
+            .hero-subtitle {
+                font-size: 0.875rem;
+            }
+
+            .container {
+                padding: 0.75rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+
+            .drag-drop-zone {
+                padding: 1.5rem;
+                min-height: 200px;
+            }
+
+            .toast-container {
+                top: 3.5rem;
+                right: 0.5rem;
+                left: 0.5rem;
+            }
+
+            .toast {
+                min-width: auto;
+                width: 100%;
+                font-size: 0.813rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                font-size: 0.813rem;
+                padding: 0.5rem 1.25rem;
+            }
+
+            .btn-sm {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            .preview-controls {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .preview-controls .btn {
+                min-width: 80px;
+            }
+
+            .form-input {
+                font-size: 16px;
+            }
+
+            .progress-step {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--bg-dark);
+            transition: right 0.3s ease;
+            z-index: 999;
+            padding: 4rem 1.5rem 2rem;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav-link {
             display: block;
-            opacity: 1;
+            padding: 0.875rem 0;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.938rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary-neon);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        section {
+            scroll-margin-top: 60px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-neon);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-red);
+        }
+
+        .glitch {
+            position: relative;
+            animation: glitch 2s ease-in-out infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 0 0 1px rgba(0, 255, 255, 0.5), 
+                            0 0 2px rgba(0, 255, 255, 0.5), 
+                            0 0 3px rgba(0, 255, 255, 0.5);
+            }
+            20% {
+                text-shadow: 2px 0 1px rgba(255, 0, 255, 0.5), 
+                            -2px 0 2px rgba(0, 255, 255, 0.5), 
+                            0 0 3px rgba(255, 0, 64, 0.5);
+            }
+            40% {
+                text-shadow: -2px 0 1px rgba(255, 0, 64, 0.5), 
+                            2px 0 2px rgba(255, 0, 255, 0.5), 
+                            0 0 3px rgba(0, 255, 255, 0.5);
+            }
+        }
+
+        @media (min-width: 640px) {
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .text-secondary {
+            font-size: 0.813rem;
+            word-wrap: break-word;
+        }
+
+        .fas, .fa {
+            font-size: inherit;
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                letter-spacing: -0.5px;
+            }
+
+            .card-title {
+                font-size: 1.125rem;
+            }
+
+            .navbar {
+                padding: 0.625rem 0;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .form-input, .btn {
+                min-height: 44px;
+            }
+        }
+
+        .me-2 { margin-right: 0.5rem !important; }
+        .me-1 { margin-right: 0.25rem !important; }
+
+        .preview-controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="bi bi-robot me-2"></i>ZYRIXO-AI</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <!-- Toasts -->
+    <div class="toast toast-success" id="successToast" style="display: none;">
+        <i class="fas fa-check toast-icon"></i>
+        <span id="successToastTitle"></span>
+        <button class="toast-close" onclick="this.parentElement.style.display='none'"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="toast toast-error" id="errorToast" style="display: none;">
+        <i class="fas fa-exclamation-triangle toast-icon"></i>
+        <span id="errorToastTitle"></span>
+        <button class="toast-close" onclick="this.parentElement.style.display='none'"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-robot"></i>
+                ZYRIXO-AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#setup" class="nav-link">Setup</a></li>
+                <li><a href="#how-to" class="nav-link">How To</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#faq">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#link-device">How to Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">Channel</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container my-5">
-        <!-- Profile Setup Section -->
-        <div class="card mb-5">
-            <div class="card-body p-4">
-                <h2 class="card-title"><i class="bi bi-person-fill-gear me-2"></i>Setup Profile Picture</h2>
-                <div class="drag-drop-zone mb-4" id="dropZone">
-                    <div id="uploadPrompt" class="text-center">
-                        <p><i class="bi bi-cloud-upload fs-2"></i></p>
-                        <p class="mb-1">Drag & Drop your profile picture here or click to browse</p>
-                        <small class="text-muted">Supported formats: JPG, PNG (Max 5MB)</small>
-                    </div>
-                    <img id="imagePreview" class="image-preview" alt="Image Preview">
-                    <div class="preview-controls" id="previewControls">
-                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="reselectImage()"><i class="bi bi-pencil me-1"></i>Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteImage()"><i class="bi bi-trash me-1"></i>Delete</button>
-                    </div>
-                    <input type="file" id="fileInput" accept="image/jpeg,image/png" class="d-none">
-                </div>
-                <div class="row align-items-center mt-3">
-                    <div class="col-md-4 mb-3">
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" pattern="[0-9]+" maxlength="15" disabled>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <button class="btn btn-primary w-100" id="generateCodeBtn" onclick="generatePairingCode()" disabled><i class="bi bi-arrow-repeat me-2"></i>Generate Code</button>
-                    </div>
-                </div>
-                <div class="pairing-code-section" id="pairingCodeSection">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="pairingCodeOutput" placeholder="Your pairing code" readonly>
-                        <button class="btn btn-outline-secondary" type="button" onclick="copyCode()"><i class="bi bi-clipboard-check me-2"></i>Copy</button>
-                    </div>
-                </div>
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#setup" class="mobile-nav-link">Setup</a></li>
+            <li><a href="#how-to" class="mobile-nav-link">How To</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title glitch">ZYRIXO-AI</h1>
+            <p class="hero-subtitle">Advanced Profile Management System</p>
+            <div class="hero-features">
+                <p class="animated-text delay-1">⚡ Instant Profile Setup</p>
+                <p class="animated-text delay-2">🔒 End-to-End Security</p>
+                <p class="animated-text delay-3">🚀 Real-time Code Pairing</p>
             </div>
+            <a href="#setup" class="btn btn-primary">
+                <span class="btn-text">Get Started</span>
+            </a>
+            <a href="#faq" class="btn btn-success floating-cta">
+                <span class="btn-text">Learn More</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="progress-step active" id="step1">1</div>
+            <div class="progress-step" id="step2">2</div>
+            <div class="progress-step" id="step3">3</div>
         </div>
 
-        <!-- How to Link Device Section -->
-        <div class="card mb-5" id="link-device">
-            <div class="card-body p-4">
-                <h2 class="card-title"><i class="bi bi-phone-fill me-2"></i>How to Link Device</h2>
-                <ol class="list-group list-group-numbered">
-                    <li class="list-group-item">Open WhatsApp on your primary phone.</li>
-                    <li class="list-group-item">Go to <strong>Settings > Linked Devices</strong>.</li>
-                    <li class="list-group-item">Tap <strong>Link a Device</strong> and select <strong>Link with phone number</strong>.</li>
-                    <li class="list-group-item">Enter the pairing code generated above in the provided field.</li>
-                    <li class="list-group-item">Follow the on-screen instructions to complete the linking process.</li>
-                </ol>
+        <!-- Setup Section -->
+        <section id="setup">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-user-cog card-icon"></i>
+                    Profile Setup
+                </h2>
+                
+                <!-- Drag & Drop Zone -->
+                <div class="drag-drop-zone" id="dropZone">
+                    <!-- Upload Prompt -->
+                    <div id="uploadPrompt">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Drop Your Image Here</h3>
+                        <p class="text-secondary">Or click to browse</p>
+                        <p class="text-secondary"><small>JPG, PNG • Max 5MB</small></p>
+                    </div>
+
+                    <!-- Image Preview Container -->
+                    <div id="imagePreviewContainer" style="position: relative; width: 100%; height: auto; display: none;">
+                        <img id="imagePreview" class="image-preview" alt="Preview" style="object-fit: cover; width: 100%; max-height: 200px; border-radius: 12px;">
+                        <div class="preview-controls">
+                            <button class="btn btn-sm me-2" onclick="reselectImage()">
+                                <span class="btn-text"><i class="fas fa-edit"></i></span>
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="deleteImage()">
+                                <span class="btn-text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/jpeg,image/png" style="display: none;">
+                    <div id="uploadSpinner" class="loading" style="display: none; margin: 0 auto;"></div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="grid grid-cols-2" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phoneNumber" placeholder="+1234567890" disabled>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary w-100" id="generateCodeBtn" onclick="generatePairingCode()" disabled style="height: 100%; margin-top: 1.25rem;">
+                            <span class="btn-text">Generate Code</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pairing Code Display -->
+                <div id="pairingCodeSection" style="display: none;">
+                    <div class="code-display">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span id="pairingCodeOutput" style="color: var(--success);">XXXX-XXXX-XXXX</span>
+                            <button class="btn btn-success btn-sm" onclick="copyCode()">
+                                <span class="btn-text"><i class="fas fa-copy"></i> Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- How To Section -->
+        <section id="how-to" class="card">
+            <h2 class="card-title">
+                <i class="fas fa-info-circle card-icon"></i>
+                How to Link Device
+            </h2>
+            <div class="grid">
+                <div class="step-card">
+                    <div style="color: var(--primary-neon);">01</div>
+                    <h4>Open WhatsApp</h4>
+                    <p class="text-secondary">Launch WhatsApp on your primary device</p>
+                </div>
+                <div class="step-card">
+                    <div style="color: var(--accent-red);">02</div>
+                    <h4>Go to Settings</h4>
+                    <p class="text-secondary">Navigate to Settings > Linked Devices</p>
+                </div>
+                <div class="step-card">
+                    <div style="color: var(--success);">03</div>
+                    <h4>Enter Code</h4>
+                    <p class="text-secondary">Input the generated pairing code</p>
+                </div>
+            </div>
+        </section>
 
         <!-- About Section -->
-        <div class="card mb-5" id="about">
-            <div class="card-body p-4">
-                <h2 class="card-title"><i class="bi bi-info-circle-fill me-2"></i>About ZYRIXO-AI</h2>
-                <p>ZYRIXO-AI is a secure platform for managing your WhatsApp profile. Upload your profile picture, generate pairing codes, and link devices effortlessly. Created by Ethix-Xsid for a seamless experience.</p>
-                <p><strong>Data Safety:</strong> Your data is safe with us. Uploaded images and session data are automatically deleted after the profile picture is updated, ensuring privacy.</p>
-                <p><strong>Warning:</strong> Using third-party tools like ZYRIXO-AI may risk a WhatsApp ban. ZYRIXO-AI and its creators are not responsible for any bans or issues arising from usage.</p>
-                <p><strong>Contact:</strong> +919142294671 | <a href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">Join our WhatsApp Channel</a></p>
+        <section id="about" class="card">
+            <h2 class="card-title">
+                <i class="fas fa-shield-alt card-icon"></i>
+                About ZYRIXO-AI
+            </h2>
+            <div class="grid grid-cols-2">
+                <div>
+                    <h4 style="color: var(--primary-neon); margin-bottom: 0.75rem;">Features</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Secure Profile Management</li>
+                        <li><i class="fas fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Auto-Delete Session Data</li>
+                        <li><i class="fas fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> End-to-End Encryption</li>
+                        <li><i class="fas fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Real-time Updates</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent-red); margin-bottom: 0.75rem;">Security Notice</h4>
+                    <p class="text-secondary" style="margin-bottom: 0.75rem;">All data is encrypted and automatically deleted after use. We prioritize your privacy and security.</p>
+                    <p class="text-secondary"><strong>Warning:</strong> Third-party tool usage may risk account restrictions. Use at your own discretion.</p>
+                </div>
             </div>
-        </div>
+        </section>
 
         <!-- FAQ Section -->
-        <div class="card mb-5" id="faq">
-            <div class="card-body p-4">
-                <h2 class="card-title"><i class="bi bi-question-circle-fill me-2"></i>FAQ</h2>
-                <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
-                                How do I upload a profile picture?
-                            </button>
-                        </h2>
-                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Drag and drop a JPG or PNG image into the upload area or click to browse. The image will upload automatically, and you can preview, edit, or delete it directly in the upload area.
-                            </div>
-                        </div>
+        <section id="faq" class="card">
+            <h2 class="card-title">
+                <i class="fas fa-question-circle card-icon"></i>
+                Frequently Asked Questions
+            </h2>
+            <div class="accordion" id="accordionFAQ">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">How do I upload a profile picture?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                How do I generate a pairing code?
-                            </button>
-                        </h2>
-                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                After uploading a profile picture, enter your phone number and click "Generate Code". Copy the displayed code using the "Copy" button.
-                            </div>
-                        </div>
+                    <div class="accordion-content">
+                        <p>Simply drag and drop your image into the upload zone or click to browse. We support JPG and PNG formats up to 5MB.</p>
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                Is my data safe with ZYRIXO-AI?
-                            </button>
-                        </h2>
-                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Yes, your uploaded images and session data are deleted after the profile picture is updated. However, using this tool may risk a WhatsApp ban, for which ZYRIXO-AI is not responsible.
-                            </div>
-                        </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">Is my data secure?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes! All data is encrypted and automatically deleted after your profile update is complete. We don't store any personal information.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">What happens if I get an error?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>If you encounter any errors, try refreshing the page and uploading again. Make sure your image meets the format and size requirements.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container">
-        <div class="toast toast-success" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <i class="bi bi-check-circle-fill me-2"></i>
-                <strong class="me-auto" id="successToastTitle"></strong>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body"></div>
-        </div>
-        <div class="toast toast-error" id="errorToast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <i class="bi bi-x-circle-fill me-2"></i>
-                <strong class="me-auto" id="errorToastTitle"></strong>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body"></div>
-        </div>
+        </section>
     </div>
 
     <!-- Footer -->
-    <footer class="text-white text-center py-4">
-        <div class="container">
-            <p class="mb-0">© 2025 ZYRIXO-AI by Ethix-Xsid. All rights reserved. | <a href="#about">About</a> | <a href="#faq">FAQ</a> | <a href="#link-device">How to Link</a> | <a href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank">WhatsApp Channel</a></p>
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#about" class="footer-link">About</a>
+            <a href="#faq" class="footer-link">FAQ</a>
+            <a href="https://whatsapp.com/channel/0029VaWJMi3GehEE9e1YsI1S" target="_blank" class="footer-link">WhatsApp Channel</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
         </div>
+        <p class="text-secondary">© 2025 ZYRIXO-AI by Ethix-Xsid. All rights reserved.</p>
     </footer>
 
-    <!-- Bootstrap JS and Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JavaScript -->
     <script>
         // State to track upload status
-        let isImageUploaded = false;
-        let currentImageFile = null;
+// State to track upload status
+let isImageUploaded = false;
+let currentImageFile = null;
 
-        // Drag and Drop Functionality
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('fileInput');
-        const imagePreview = document.getElementById('imagePreview');
-        const uploadPrompt = document.getElementById('uploadPrompt');
-        const previewControls = document.getElementById('previewControls');
-        const phoneNumberInput = document.getElementById('phoneNumber');
-        const generateCodeBtn = document.getElementById('generateCodeBtn');
-        const pairingCodeSection = document.getElementById('pairingCodeSection');
+// Drag and Drop Functionality
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const imagePreview = document.getElementById('imagePreview');
+const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+const uploadPrompt = document.getElementById('uploadPrompt');
+const phoneNumberInput = document.getElementById('phoneNumber');
+const generateCodeBtn = document.getElementById('generateCodeBtn');
+const pairingCodeSection = document.getElementById('pairingCodeSection');
+const uploadSpinner = document.getElementById('uploadSpinner'); // Note: This element is not in the HTML, see note below
 
-        dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('click', () => {
+    console.log('Drop zone clicked, opening file input');
+    fileInput.click();
+});
 
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+    console.log('Drag over drop zone');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+    console.log('Drag left drop zone');
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    console.log('Files dropped:', files);
+    if (files.length > 0 && (files[0].type === 'image/jpeg' || files[0].type === 'image/png')) {
+        fileInput.files = files;
+        currentImageFile = files[0];
+        showImagePreview(files[0]);
+        uploadProfilePicture(files[0]);
+    } else {
+        showErrorToast('Please select a JPG or PNG file');
+    }
+});
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+        console.log('File selected via input:', fileInput.files[0]);
+        currentImageFile = fileInput.files[0];
+        showImagePreview(fileInput.files[0]);
+        uploadProfilePicture(fileInput.files[0]);
+    }
+});
+
+// Show Image Preview
+function showImagePreview(file) {
+    console.log('Showing image preview for file:', file.name);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block'; // Ensure image is visible
+        uploadPrompt.style.display = 'none';
+        imagePreviewContainer.style.display = 'block'; // Show container
+        console.log('Image preview loaded, src:', e.target.result);
+    };
+    reader.onerror = () => {
+        console.error('Error reading file');
+        showErrorToast('Error reading image file');
+    };
+    reader.readAsDataURL(file);
+}
+// FIX DONE LOLU 
+function reselectImage() {
+    console.log('Reselect image triggered');
+    fileInput.click();
+}
+
+// Delete Image
+function deleteImage() {
+    console.log('Deleting image');
+    fileInput.value = '';
+    currentImageFile = null;
+    isImageUploaded = false;
+    imagePreviewContainer.style.display = 'none';
+    uploadPrompt.style.display = 'block';
+    imagePreview.src = ''; // Clear image source
+    imagePreview.style.display = 'none';
+    phoneNumberInput.disabled = true;
+    generateCodeBtn.disabled = true;
+    pairingCodeSection.style.display = 'none'; // Use style.display instead of classList
+    showSuccessToast('Image Deleted');
+}
+
+// Toast Notifications
+function showSuccessToast(title) {
+    const toast = document.getElementById('successToast');
+    document.getElementById('successToastTitle').textContent = title;
+    toast.classList.add('toast-success');
+    toast.style.display = 'flex';
+    console.log('Showing success toast:', title);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => {
+            toast.style.display = 'none';
+            toast.style.animation = ''; // Reset animation
+            toast.classList.remove('toast-success');
+        }, 300);
+    }, 4000);
+}
+
+function showErrorToast(title) {
+    const toast = document.getElementById('errorToast');
+    document.getElementById('errorToastTitle').textContent = title;
+    toast.classList.add('toast-error');
+    toast.style.display = 'flex';
+    console.log('Showing error toast:', title);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => {
+            toast.style.display = 'none';
+            toast.style.animation = ''; // Reset animation
+            toast.classList.remove('toast-error');
+        }, 300);
+    }, 4000);
+}
+
+// Upload Profile Picture
+async function uploadProfilePicture(file) {
+    if (!file) {
+        showErrorToast('No file selected');
+        console.error('No file provided for upload');
+        return;
+    }
+
+    // Note: uploadSpinner is not defined in HTML, so this will cause an error
+    // If you have a spinner element, add it to the HTML, e.g., <div id="uploadSpinner" class="loading" style="display: none;"></div>
+    // For now, commenting out spinner-related code
+    // uploadSpinner.style.display = 'block';
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    try {
+        console.log('Uploading profile picture:', file.name);
+        const response = await fetch('/upload-photo', {
+            method: 'POST',
+            body: formData
         });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0 && (files[0].type === 'image/jpeg' || files[0].type === 'image/png')) {
-                fileInput.files = files;
-                currentImageFile = files[0];
-                showImagePreview(files[0]);
-                uploadProfilePicture(files[0]);
-            } else {
-                showErrorToast('Please select a JPG or PNG file');
-            }
-        });
-
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length > 0) {
-                currentImageFile = fileInput.files[0];
-                showImagePreview(fileInput.files[0]);
-                uploadProfilePicture(fileInput.files[0]);
-            }
-        });
-
-        // Show Image Preview in Upload Box
-        function showImagePreview(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                uploadPrompt.style.display = 'none';
-                previewControls.style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Reselect Image
-        function reselectImage() {
-            fileInput.click();
-        }
-
-        // Delete Image
-        function deleteImage() {
-            fileInput.value = '';
-            currentImageFile = null;
+        const data = await response.json();
+        // uploadSpinner.style.display = 'none';
+        if (response.ok) {
+            showSuccessToast(data.status || 'Image uploaded successfully');
+            isImageUploaded = true;
+            phoneNumberInput.disabled = false;
+            generateCodeBtn.disabled = false;
+            console.log('Upload successful:', data);
+        } else {
+            showErrorToast(data.status || 'Error uploading image');
             isImageUploaded = false;
-            imagePreview.style.display = 'none';
-            uploadPrompt.style.display = 'block';
-            previewControls.style.display = 'none';
             phoneNumberInput.disabled = true;
             generateCodeBtn.disabled = true;
-            pairingCodeSection.classList.remove('visible');
-            showSuccessToast('Image Deleted');
+            console.error('Upload failed:', data);
         }
+    } catch (error) {
+        // uploadSpinner.style.display = 'none';
+        showErrorToast('Error uploading profile picture');
+        isImageUploaded = false;
+        phoneNumberInput.disabled = true;
+        generateCodeBtn.disabled = true;
+        console.error('Upload error:', error);
+    }
+}
 
-        // Toast Notifications
-        function showSuccessToast(title) {
-            const toast = document.getElementById('successToast');
-            document.getElementById('successToastTitle').textContent = title;
-            const bsToast = new bootstrap.Toast(toast);
-            bsToast.show();
+// Generate Pairing Code
+async function generatePairingCode() {
+    const phoneNumber = document.getElementById('phoneNumber').value.replace(/[^0-9]/g, '');
+    if (!phoneNumber) {
+        showErrorToast('Please enter a valid phone number');
+        console.error('No phone number provided');
+        return;
+    }
+
+    // uploadSpinner.style.display = 'block';
+    try {
+        console.log('Generating pairing code for phone:', phoneNumber);
+        const response = await fetch('/pairing-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phoneNumber })
+        });
+        const data = await response.json();
+        // uploadSpinner.style.display = 'none';
+        if (data.pairingCode) {
+            document.getElementById('pairingCodeOutput').textContent = data.pairingCode;
+            pairingCodeSection.style.display = 'block'; // Use style.display
+            showSuccessToast(data.status || 'Pairing code generated');
+            console.log('Pairing code generated:', data.pairingCode);
+        } else {
+            showErrorToast('Error generating pairing code');
+            console.error('Pairing code generation failed:', data);
         }
+    } catch (error) {
+        // uploadSpinner.style.display = 'none';
+        showErrorToast('Error generating pairing code');
+        console.error('Pairing error:', error);
+    }
+}
 
-        function showErrorToast(title) {
-            const toast = document.getElementById('errorToast');
-            document.getElementById('errorToastTitle').textContent = title;
-            const bsToast = new bootstrap.Toast(toast);
-            bsToast.show();
-        }
+// Copy Pairing Code
+function copyCode() {
+    const code = document.getElementById('pairingCodeOutput').textContent;
+    if (code && code !== 'XXXX-XXXX-XXXX') {
+        navigator.clipboard.writeText(code).then(() => {
+            showSuccessToast('Pairing Code Copied');
+            console.log('Code copied:', code);
+        }).catch((err) => {
+            showErrorToast('Failed to copy code');
+            console.error('Copy error:', err);
+        });
+    } else {
+        showErrorToast('No code to copy');
+        console.error('No valid code to copy');
+    }
+}
 
-        // Upload Profile Picture
-        async function uploadProfilePicture(file) {
-            if (!file) {
-                showErrorToast('No file selected');
-                return;
-            }
+// Theme Toggle (unchanged, included for completeness)
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const themeIcon = document.querySelector('.theme-toggle i');
+    themeIcon.classList.toggle('bi-moon-stars-fill');
+    themeIcon.classList.toggle('bi-sun-fill');
+}
 
-            const formData = new FormData();
-            formData.append('profilePicture', file);
+// Smooth Scroll and Active Nav Link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+// Fix by ROMEK-XD 
+        function toggleAccordion(element) {
+    const item = element.parentElement;
+    const isActive = item.classList.contains('active');
 
-            try {
-                const response = await fetch('/upload-photo', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    showSuccessToast(data.status);
-                    isImageUploaded = true;
-                    phoneNumberInput.disabled = false;
-                    generateCodeBtn.disabled = false;
-                } else {
-                    showErrorToast(data.status);
-                    isImageUploaded = false;
-                    phoneNumberInput.disabled = true;
-                    generateCodeBtn.disabled = true;
-                    imagePreview.style.display = 'none';
-                    uploadPrompt.style.display = 'block';
-                    previewControls.style.display = 'none';
+    // Close all other
+    document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('active');
+    });
+
+    // Toggle current
+    if (!isActive) item.classList.add('active');
+}
+
+                // Add CSS animation for slide out
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideOut {
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
                 }
-            } catch (error) {
-                showErrorToast('Error uploading profile picture');
-                isImageUploaded = false;
-                phoneNumberInput.disabled = true;
-                generateCodeBtn.disabled = true;
-                imagePreview.style.display = 'none';
-                uploadPrompt.style.display = 'block';
-                previewControls.style.display = 'none';
-                console.error('Upload error:', error);
             }
-        }
+        `;
+        document.head.appendChild(style);
+        document.getElementById('mobileMenu').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+});
 
-        // Generate Pairing Code
-        async function generatePairingCode() {
-            const phoneNumber = document.getElementById('phoneNumber').value.replace(/[^0-9]/g, '');
-            if (!phoneNumber) {
-                showErrorToast('Please enter a valid phone number');
-                return;
-            }
+document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+});
 
-            try {
-                const response = await fetch('/pairing-code', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phoneNumber })
-                });
-                const data = await response.json();
-                if (data.pairingCode) {
-                    document.getElementById('pairingCodeOutput').value = data.pairingCode;
-                    pairingCodeSection.classList.add('visible');
-                    showSuccessToast(data.status);
-                } else {
-                    showErrorToast('Error generating pairing code');
-                }
-            } catch (error) {
-                showErrorToast('Error generating pairing code');
-                console.error('Pairing error:', error);
-            }
-        }
-
-        // Copy Pairing Code
-        function copyCode() {
-            const code = document.getElementById('pairingCodeOutput').value;
-            if (code) {
-                navigator.clipboard.writeText(code).then(() => {
-                    showSuccessToast('Pairing Code Copied');
-                });
-            } else {
-                showErrorToast('No code to copy');
-            }
-        }
     </script>
 </body>
 </html>
