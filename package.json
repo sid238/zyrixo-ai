@@ -10,7 +10,7 @@
     "restart": "pm2 restart Ethix-MD"
   },
   "dependencies": {
-    "baileys": "^6.7.16",
+    "baileys-anya": "*",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "fs": "^0.0.1-security",
