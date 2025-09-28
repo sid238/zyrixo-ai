@@ -17,7 +17,7 @@ const {
     fetchLatestBaileysVersion,
     downloadContentFromMessage,
     jidNormalizedUser
-} = require('baileys-anya');
+} = require('@yupra/baileys');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
